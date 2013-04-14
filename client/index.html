@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Backbone.js Tasks</title>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/underscore.min.js"></script>
+	<script type="text/javascript" src="js/backbone.min.js"></script>
+	<script type="text/javascript">
+	var currentDate = new Date();
+	Task = Backbone.Model.extend({
+		defaults: {
+			id: null,
+			user_created: 1,
+			user_updated: null,
+			user_responsible: null,
+			date_created: currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate() + ' ' + currentDate.getHours() + ':' + currentDate.getMinutes() + ':' + currentDate.getSeconds(),
+			date_updated: null,
+			date_due: null,
+			project_id : 1,
+			task: ''
+		},
+		urlRoot: 'http://localhost/articles/tasks/server/index.php/task'
+	});
+	
+	Tasks = Backbone.Collection.extend({
+		model: Task,
+		url: 'http://localhost/articles/tasks/server/index.php/task' 
+	});
+	
+	console.log();
+	var tasks = new Tasks();
+	tasks.fetch({success: function() {
+		console.log(tasks.toJSON());
+	}});
+	
+	tasks.create({task: 'Task A4', date_due: '2012-07-31 12:34:56'});
+	
+	/*var task = new Task({id: 2});
+	task.fetch();
+	task.set('task', 'Task A2');
+	console.log(task);
+	task.save();
+	console.log(Date.now());
+	task = new Task({task:'Task A3'});
+	task.save();*/
+	
+	</script>
+</head>
+<body>
+	
+	
+</body>
+</html>
