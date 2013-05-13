@@ -1,0 +1,55 @@
+body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+}
+.sidebar-nav {
+      padding: 9px 0;
+}
+.main-content {
+      clear: right;
+}
+h3 {
+      line-height: 20px;
+}
+.datepicker {
+      z-index: 1052;
+}
+.date-col {
+      width: 150px;
+}
+.status-col, .action-col {
+      width: 40px;
+}
+td.center-col {
+      text-align: center;
+}
+.table-hover tbody tr:hover > td, .table-hover tbody tr:hover > th {
+      background-color: #0088cc; 
+      color: #ffffff;
+}
+.table-hover tbody tr:hover i {
+      background-image: url("../img/glyphicons-halflings-white.png");
+}
+.offset-right {
+      margin-right: 10px;
+}
+#tasks .finished {
+      text-decoration: line-through;
+}
+#tasks td {
+      cursor: pointer; 
+      -moz-user-select: none; 
+      -khtml-user-select: none; 
+      -webkit-user-select: none; 
+      user-select: none;
+}
+@media (max-width: 980px) {
+      body {
+            padding-top: 0px;
+      }
+      .navbar-text.pull-right {
+            float: none;
+            padding-left: 5px;
+            padding-right: 5px;
+      }
+}

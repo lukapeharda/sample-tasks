@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tasks</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/tasks.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="#">Tasks</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list" id="projects">
+              <li class="nav-header">Projects</li>
+            </ul>
+          </div>
+          <a href="#new-project" id="add-project" class="btn pull-right"><i class="icon-folder-open"></i>&nbsp;&nbsp;Add project</a>
+        </div>
+        <div class="span9 main-content">
+          <div class="page-header">
+            <div class="row-fluid">
+                <div class="span9">
+                  <h3 id="project-title"><span>Project 1</span> tasks</h3>
+                </div>
+                <div class="span3">
+                  <a href="#new-task" id="add-task" role="button" class="btn pull-right" data-toggle="modal"><i class="icon-tasks"></i>&nbsp;&nbsp;Add task</a>
+                  <a href="#delete-project" id="remove-project" role="button" class="btn pull-right offset-right"><i class="icon-remove"></i></a>
+                </div>
+            </div>
+          </div>
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th class="status-col">Status</th>
+                <th>Task</th>
+                <th class="date-col">Due date</th>
+                <th class="action-col">&nbsp;</th>          
+              </tr>
+            </thead>
+            <tbody id="tasks">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="js/underscore.min.js"></script>
+	<script type="text/javascript" src="js/backbone.min.js"></script>
+	<script type="text/javascript" src="js/tasks.js"></script>
+	
+	<script type="text/template" id="project-dialog">
+		<div class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="Create project" aria-hidden="true">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	        <h3 id="myModalLabel">Create project</h3>
+	      </div>
+	      <div class="modal-body">
+	        <form class="form-inline">
+	          <input type="text" name="name" class="input-block-level project-title" placeholder="Project name" value="<%= name %>">
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button class="btn close-action" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	        <button class="btn btn-primary save-action">Save</button>
+	      </div>
+	    </div>
+	    <div class="modal-backdrop fade in"></div>
+	</script>
+	<script type="text/template" id="project-item">
+		<a href="#<%= id %>" data-id="<%= id %>"><%= name %></a>
+	</script>
+	<script type="text/template" id="task-dialog">
+		<div class="modal in fade" tabindex="-1" role="dialog" aria-labelledby="Create task" aria-hidden="true">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+	        <h3 id="myModalLabel">Create task</h3>
+	      </div>
+	      <div class="modal-body">
+	        <form class="form-inline">
+	          <input type="text" name="task" class="input-xlarge input-task" placeholder="Task name" value="<%= task %>">
+	          <div id="dp1" class="input-append date">
+	          	<input class="input-medium" name="date_due" value="<%= date_due %>" data-format="yyyy-MM-dd hh:mm:ss" type="text" placeholder="Due date">
+	          	<span class="add-on">
+	          		<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+	          	</span>
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button class="btn close-action" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	        <button class="btn btn-primary save-action">Save</button>
+	      </div>
+	    </div>
+	    <div class="modal-backdrop fade in"></div>
+	</script>
+	<script type="text/template" id="task-item">
+		<td class="center-col">
+			<input type="checkbox" name="status" value="1"<% if (status == 1) { %> checked="checked" <% } %> />
+		</td>
+		<td<% if (status == 1) { %> class="finished" <% } %>><%= task %></td>
+		<td<% if (status == 1) { %> class="finished" <% } %>><%= date_due %></td>
+		<td class="center-col">
+			<a href="#delete" class="delete-action">
+				<i class="icon-remove"></i>
+			</a>
+		</td>
+	</script>
+  </body>
+</html>

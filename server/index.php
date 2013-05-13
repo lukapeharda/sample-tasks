@@ -21,13 +21,17 @@ $app->get('/task(/:id)', function ($id = null) use ($app, $db) {
      * 
      * If it is, then we wish to fetch single task item, else we'll fetch whole set
      */
-    if (null === $id) { 
+    if (null === $id) {
 
+        /*
+         * If there is no ID in request that means that we need to return all of the tasks but just for requested project, hence we are fetching project ID from URI
+         */
+        $projectId = $app->request()->get('project');
         $data = array();
         /*
          * We're fetching tasks and filling an array that we'll return to the client
          */
-        foreach ($db->task() as $task) {
+        foreach ($db->task()->where('project_id', $projectId) as $task) {
             $data[] = array(
                 'id' =>               $task['id'],
                 'task' =>             $task['task'],
@@ -36,9 +40,7 @@ $app->get('/task(/:id)', function ($id = null) use ($app, $db) {
                 'date_due' =>         $task['date_due'],
                 'status' =>           $task['status']
             );
-        }
-        
-        
+        }        
     } else {
         $data = null;
         /*
@@ -75,7 +77,7 @@ $app->post('/task', function () use ($app, $db) {
      * We are reading JSON object received in HTTP request body and converting it to array
      */
     $task = (array) json_decode($app->request()->getBody());
-    
+
     /*
      * Inserting new task to DB
      */
@@ -87,9 +89,9 @@ $app->post('/task', function () use ($app, $db) {
     $app->response()->header('Content-Type', 'application/json');
     
     /*
-     * Outputing request
+     * Outputing request, we need to return whole task object as an array, that way ID will be automatically added to model
      */
-    echo json_encode($data['id']);
+    echo json_encode((array)$data->getIterator());
 });
 
 /*
@@ -115,6 +117,7 @@ $app->put('/task/:id', function ($id) use ($app, $db) {
     }
     
     $app->response()->header('Content-Type', 'application/json');
+    // echo json_encode((array)$data->getIterator());
     echo json_encode($data);
 });
 
@@ -180,7 +183,7 @@ $app->post('/project', function () use ($app, $db) {
     $data = $db->project()->insert($project);
 
     $app->response()->header('Content-Type', 'application/json');
-    echo json_encode($data['id']);
+    echo json_encode((array)$data->getIterator());
 });
 
 /*
@@ -198,17 +201,23 @@ $app->put('/project/:id', function ($id) use ($app, $db) {
     }
     
     $app->response()->header('Content-Type', 'application/json');
-    echo json_encode($data);
+    echo json_encode((array)$data->getIterator());
 });
 
 /*
  * Delete specified project
  */
 $app->delete('/project/:id', function ($id) use ($app, $db) {
+    /*
+     * First we need to delete all tasks that are in relation with this project
+     */
+    foreach ($db->task()->where('project_id', $id) as $task) {
+        $task->delete();
+    }
     
     $project = $db->project()->where('id', $id);
-    $data = null;
 
+    $data = null;
     if ($project->fetch()) {
         $data = $project->delete();
     }

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tasks</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datepicker.css" rel="stylesheet">
+     <style type="text/css">
+      body {padding-top: 60px;padding-bottom: 40px;}
+      .sidebar-nav {padding: 9px 0;}
+      h3 {line-height: 20px;}
+      .datepicker {z-index: 1052;}
+      .date-col {width: 70px;}
+      .status-col, .action-col {width: 40px;}
+      td.center-col {text-align: center;}
+      td.finished {text-decoration: line-through;}
+      .table-hover tbody tr:hover > td, .table-hover tbody tr:hover > th {background-color: #0088cc; color: #ffffff;}
+      .table-hover tbody tr:hover i {background-image: url("img/glyphicons-halflings-white.png");}
+      .offset-right {margin-right: 10px;}
+      @media (max-width: 980px) {.navbar-text.pull-right {float: none;padding-left: 5px;padding-right: 5px;}}
+    </style>
+
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="#">Tasks</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Projects</li>
+              <li class="active"><a href="#">Project 1</a></li>
+              <li><a href="#">Project 2</a></li>
+              <li><a href="#">Project 3</a></li>
+            </ul>
+          </div>
+          <a href="#new-project" role="button" class="btn pull-right" data-toggle="modal"><i class="icon-folder-open"></i>&nbsp;&nbsp;Add project</a>
+        </div>
+        <div class="span9">
+          <div class="page-header">
+            <div class="row-fluid">
+                <div class="span9">
+                  <h3><span>Project 1</span> tasks</h3>
+                </div>
+                <div class="span3">
+                  <a href="#new-task" role="button" class="btn pull-right" data-toggle="modal"><i class="icon-tasks"></i>&nbsp;&nbsp;Add task</a>
+                  <a href="#delete-project" role="button" class="btn pull-right offset-right"><i class="icon-remove"></i></a>
+                </div>
+            </div>
+          </div>
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th class="status-col">Status</th>
+                <th>Task</th>
+                <th class="date-col">Due date</th>
+                <th class="action-col">&nbsp;</th>          
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="center-col"><input type="checkbox" value="1"></td>
+                <td>Task 1</td>
+                <td>20/12/2013</td>
+                <td class="center-col"><a href="#delete"><i class="icon-remove"></i></a></td>
+              </tr>
+              <tr>
+                <td class="center-col"><input type="checkbox" value="1"></td>
+                <td>Task 2</td>
+                <td>20/12/2013</td>
+                <td class="center-col"><a href="#delete"><i class="icon-remove"></i></a></td>
+              </tr>
+              <tr>
+                <td class="center-col"><input type="checkbox" checked="checked" value="1"></td>
+                <td class="finished">Task 3</td>
+                <td class="finished">20/12/2013</td>
+                <td class="center-col"><a href="#delete"><i class="icon-remove"></i></a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="new-task" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Create task" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="myModalLabel">Create task</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline">
+          <input type="text" class="input-xlarge input-task" placeholder="Task name">
+          <input class="input-small" size="16" type="text" placeholder="Due date" id="dp1">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </div>
+
+    <div id="new-project" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Create project" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="myModalLabel">Create project</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline">
+          <input type="text" class="input-block-level" placeholder="Project name">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </div>
+    
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+      $('#dp1').datepicker();
+    </script>
+  </body>
+</html>
